@@ -5,7 +5,7 @@ const toursData = [
         title: "Tour Du Thuyền 5 Sao Khám Phá Vịnh Hạ Long - Đảo Ti Tốp",
         location: "Quảng Ninh",
         category: "đi biển giá rẻ",
-        badge: "Bán chạy",
+        badge: "Tour HOt",
         duration: "3 Ngày 2 Đêm",
         rating: "4.9 (120 đánh giá)",
         price: 3490000,
@@ -14,7 +14,7 @@ const toursData = [
     },
     {
         id: 2,
-        title: "Thiên Đường Biển Đảo Phú Quốc - Grand World - Hòn Thơm",
+        title: "Thiên Đường Biển Đảo Phú Quốc - Grand WoArld - Hòn Thơm",
         location: "Kiên Giang",
         category: "đi biển ngắm sao",
         badge: "Hot",
@@ -41,7 +41,7 @@ const toursData = [
         title: "Sapa Mờ Sương - Chinh Phục Đỉnh Fansipan - Bản Cát Cát",
         location: "Lào Cai",
         category: "săn mây khám phá núi",
-        badge: "",
+        badge: "Tour Mới",
         duration: "2 Ngày 1 Đêm",
         rating: "4.7 (88 đánh giá)",
         price: 1950000,
@@ -65,7 +65,7 @@ const toursData = [
         title: "Tuyệt Tình Cốc Ninh Bình - Tràng An - Chùa Bái Đính",
         location: "Ninh Bình",
         category: "tour giá rẻ khám phá núi",
-        badge: "",
+        badge: "Giảm 10%",
         duration: "1 Ngày",
         rating: "4.8 (64 đánh giá)",
         price: 850000,
@@ -118,7 +118,8 @@ function renderTours(tours) {
     });
 }
 
-function executeSearch(keyword) {
+// Thêm tham số shouldScroll (mặc định = false)
+function executeSearch(keyword, shouldScroll = false) {
     const cleanKw = keyword.toLowerCase().trim();
     const filtered = toursData.filter(t => 
         t.title.toLowerCase().includes(cleanKw) || 
@@ -127,9 +128,12 @@ function executeSearch(keyword) {
     );
     renderTours(filtered);
 
-    const resultsSection = document.getElementById("resultsSection");
-    if (resultsSection) {
-        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    // Chỉ cuộn trang xuống khi shouldScroll = true (khi bấm nút Tìm kiếm / bấm thẻ gợi ý / ấn Enter)
+    if (shouldScroll) {
+        const resultsSection = document.getElementById("resultsSection");
+        if (resultsSection) {
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 }
 
@@ -140,14 +144,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnSearch = document.getElementById("btnSearch");
     const tagBtns = document.querySelectorAll(".tag-btn");
 
-    if (searchInput) searchInput.addEventListener("input", (e) => executeSearch(e.target.value));
-    if (btnSearch) btnSearch.addEventListener("click", () => executeSearch(searchInput.value));
+    // 1. Khi GÕ CHỮ -> chỉ lọc kết quả, KHÔNG trượt trang (shouldScroll = false)
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => executeSearch(e.target.value, false));
+        
+        // Nhấn phím ENTER trong ô tìm kiếm -> Lọc VÀ cuộn xuống
+        searchInput.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                executeSearch(searchInput.value, true);
+            }
+        });
+    }
 
+    // 2. Khi BẤM NÚT TÌM KIẾM -> Lọc VÀ cuộn xuống (shouldScroll = true)
+    if (btnSearch) {
+        btnSearch.addEventListener("click", () => executeSearch(searchInput.value, true));
+    }
+
+    // 3. Khi BẤM THẺ GỌI Ý -> Lọc VÀ cuộn xuống (shouldScroll = true)
     tagBtns.forEach(btn => {
         btn.addEventListener("click", function () {
             const tagText = this.innerText.replace(/^[^\s]+\s*/, '');
             if (searchInput) searchInput.value = tagText;
-            executeSearch(tagText);
+            executeSearch(tagText, true);
         });
     });
 });
