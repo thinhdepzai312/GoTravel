@@ -1,0 +1,172 @@
+/* Trạng thái active menu khi ở trang Điểm đến */
+nav a.active {
+    color: #0878c9;
+    font-weight: bold;
+}
+
+/* Khu vực danh sách tour */
+.destinations-section {
+    padding: 60px 8%;
+    background-color: #f8fafc;
+    min-height: calc(100vh - 180px);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-header h2 {
+    font-size: 36px;
+    color: #17324d;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    color: #64748b;
+    font-size: 16px;
+}
+
+/* Lưới hiển thị các Card Tour */
+.tours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Thẻ Tour */
+.tour-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.tour-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Hình ảnh Tour */
+.tour-img {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tour-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.tour-card:hover .tour-img img {
+    transform: scale(1.08);
+}
+
+.tour-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(8, 120, 201, 0.9);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Nội dung chi tiết Tour */
+.tour-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.tour-location {
+    font-size: 13px;
+    color: #0878c9;
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tour-title {
+    font-size: 18px;
+    color: #1e293b;
+    font-weight: bold;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.tour-info {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Chân thẻ Tour (Giá & Nút bấm) */
+.tour-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tour-price {
+    display: flex;
+    flex-direction: column;
+}
+
+.tour-price small {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.tour-price span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ef4444;
+}
+
+.btn-book {
+    background-color: #0878c9;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-book:hover {
+    background-color: #05629f;
+}
+
+/* Responsive di động */
+@media (max-width: 768px) {
+    .destinations-section {
+        padding: 40px 20px;
+    }
+
+    .section-header h2 {
+        font-size: 28px;
+    }
+
+    .tours-grid {
+        grid-template-columns: 1fr;
+    }
+}

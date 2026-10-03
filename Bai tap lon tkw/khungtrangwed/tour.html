@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Du Lịch - GoTravel</title>
+
+    <!-- Liên kết các tệp CSS trong thư mục style.css/ -->
+    <link rel="stylesheet" href="style.css/banner.css">
+    <link rel="stylesheet" href="style.css/tour.css">
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <!-- ================= HEADER GOTRAVEL ================= -->
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="banner.html">Trang chủ</a>
+                <a href="diemden.html">Điểm đến</a>
+                <a href="tour.html" class="active">Tour du lịch</a>
+                <a href="blog.html">Blog</a>
+                <a href="lienhe.html">Liên hệ</a>
+            </nav>
+            <div id="user-account-area">
+                <button type="button" class="login" onclick="window.location.href='login.html'">Đăng nhập</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= HERO BANNER TÌM KIẾM ================= -->
+    <section class="hero-section">
+        <div class="overlay"></div>
+        <div class="search-container">
+            <h2>Tất Cả Tour Du Lịch Nổi Bật</h2>
+            <p>Chọn lựa những hành trình tuyệt vời nhất được thiết kế riêng cho bạn</p>
+
+            <!-- Thanh tìm kiếm -->
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Bạn muốn đi đâu? (Nhập tên tour, địa điểm...)" autocomplete="off">
+                <button type="button" class="btn-search" id="btnSearch">Tìm kiếm</button>
+            </div>
+
+            <!-- Thẻ gợi ý nhanh -->
+            <div class="quick-tags">
+                <span class="tags-label">Gợi ý hot:</span>
+                <button type="button" class="tag-btn">🏷️ Tour giá rẻ</button>
+                <button type="button" class="tag-btn">🏖️ Đi biển</button>
+                <button type="button" class="tag-btn">☁️ Săn mây</button>
+                <button type="button" class="tag-btn">✨ Ngắm sao</button>
+                <button type="button" class="tag-btn">⛰️ Khám phá núi</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= KẾT QUẢ TÌM KIẾM TOUR ================= -->
+    <section class="tour-results-section" id="resultsSection">
+        <div class="results-header">
+            <h3>Các Tour Du Lịch Nổi Bật</h3>
+        </div>
+
+        <!-- Lưới hiển thị danh sách các thẻ Tour -->
+        <div class="tours-grid" id="tourGrid"></div>
+
+        <!-- Thông báo khi không tìm thấy dữ liệu -->
+        <div id="noResults" class="no-results" style="display: none;">
+            <span class="no-results-icon">🧭</span>
+            <p>Không tìm thấy tour nào phù hợp với yêu cầu của bạn.</p>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER FEATURES ================= -->
+    <section class="features">
+        <div class="feature">
+            <span class="feature-icon">✈️</span>
+            <div>
+                <h3>Tour đa dạng</h3>
+                <p>Trong nước & quốc tế</p>
+            </div>
+        </div>
+        <div class="feature">
+            <span class="feature-icon">🛡️</span>
+            <div>
+                <h3>An toàn, uy tín</h3>
+                <p>Đồng hành cùng bạn</p>
+            </div>
+        </div>
+        <div class="feature">
+            <span class="feature-icon">🎧</span>
+            <div>
+                <h3>Hỗ trợ 24/7</h3>
+                <p>Luôn sẵn sàng</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nạp file JavaScript xử lý danh sách Tour -->
+    <script src="tour.js"></script>
+
+    <!-- JavaScript xử lý trạng thái Đăng nhập trên Header -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const userArea = document.getElementById("user-account-area");
+
+            if (currentUser && userArea) {
+                userArea.innerHTML = `
+                    <div class="user-menu-container">
+                        <div class="user-btn" onclick="toggleUserDropdown()">
+                            <span class="avatar-icon">👤</span>
+                            <span class="user-name">${currentUser.name || currentUser.email}</span>
+                            <small>▼</small>
+                        </div>
+                        <div id="user-dropdown" class="user-dropdown">
+                            <div class="dropdown-header">
+                                <strong>${currentUser.name || "Khách hàng"}</strong>
+                                <small>${currentUser.email}</small>
+                            </div>
+                            <hr>
+                            <a href="mytours.html">📋 Tour của tôi</a>
+                            <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById("user-dropdown");
+            if (dropdown) dropdown.classList.toggle("show");
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem("currentUser");
+            window.location.reload();
+        }
+    </script>
+
+</body>
+
+</html>

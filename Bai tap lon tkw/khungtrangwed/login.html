@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - GoTravel</title>
+
+    <!-- CSS chung & CSS riêng cho Login -->
+    <link rel="stylesheet" href="style.css/banner.css">
+    <link rel="stylesheet" href="style.css/login.css">
+
+    <style>
+        /* CSS cho nút con mắt ẩn/hiện mật khẩu */
+        .toggle-password {
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            padding: 0 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .toggle-password:hover {
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="banner.html">Trang chủ</a>
+                <a href="diemden.html">Điểm đến</a>
+                <a href="tour.html">Tour du lịch</a>
+                <a href="blog.html">Blog</a>
+                <a href="lienhe.html">Liên hệ</a>
+            </nav>
+            <button class="login" onclick="location.href='login.html'">Đăng nhập</button>
+        </div>
+    </header>
+
+
+    <!-- ================= KHU VỰC TÀI KHOẢN ================= -->
+    <div class="login-wrapper">
+        <div class="login-container">
+            
+            <!-- Khung thông báo lỗi / Thành công -->
+            <div id="alert-box" class="alert-msg"></div>
+
+            <!-- ================= 1. FORM ĐĂNG NHẬP ================= -->
+            <form id="form-login" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="login-header">
+                    <h2>Đăng Nhập</h2>
+                    <p>Chào mừng bạn quay trở lại với <span>GoTravel</span></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-email">Email hoặc Số điện thoại</label>
+                    <div class="input-box">
+                        <span class="input-icon">✉️</span>
+                        <input type="text" id="login-email" placeholder="admin@gmail.com" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-pass">Mật khẩu</label>
+                    <div class="input-box">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="login-pass" placeholder="123456" required>
+                        <!-- Biểu tượng con mắt ẩn/hiện mật khẩu -->
+                        <span class="toggle-password" onclick="togglePasswordVisibility('login-pass', this)" title="Hiện/Ẩn mật khẩu">👁️</span>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <span>Ghi nhớ đăng nhập</span>
+                    </label>
+                    <a href="javascript:void(0)" class="forgot-pass" onclick="switchForm('forgot')">Quên mật khẩu?</a>
+                </div>
+
+                <button type="submit" class="btn-submit">Đăng nhập</button>
+
+                <div class="social-login">
+                    <p>Hoặc đăng nhập bằng</p>
+                    <div class="social-btns">
+                        <button type="button" class="btn-social google" onclick="handleSocialLogin('Google')">
+                            Google
+                        </button>
+                        <button type="button" class="btn-social facebook" onclick="handleSocialLogin('Facebook')">
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+
+                <div class="register-link">
+                    Chưa có tài khoản? <a href="javascript:void(0)" onclick="switchForm('register')">Đăng ký ngay</a>
+                </div>
+            </form>
+
+
+            <!-- ================= 2. FORM ĐĂNG KÝ ================= -->
+            <form id="form-register" class="auth-form" onsubmit="handleRegister(event)">
+                <div class="login-header">
+                    <h2>Đăng Ký Tài Khoản</h2>
+                    <p>Tạo tài khoản mới cùng <span>GoTravel</span></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-name">Họ và Tên</label>
+                    <div class="input-box">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="reg-name" placeholder="Nhập họ và tên" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">Email hoặc Số điện thoại</label>
+                    <div class="input-box">
+                        <span class="input-icon">✉️</span>
+                        <input type="text" id="reg-email" placeholder="Nhập email hoặc SĐT" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-pass">Mật khẩu</label>
+                    <div class="input-box">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="reg-pass" placeholder="Tạo mật khẩu" required minlength="6">
+                        <!-- Biểu tượng con mắt ẩn/hiện mật khẩu -->
+                        <span class="toggle-password" onclick="togglePasswordVisibility('reg-pass', this)" title="Hiện/Ẩn mật khẩu">👁️</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Tạo tài khoản</button>
+
+                <div class="register-link">
+                    Đã có tài khoản? <a href="javascript:void(0)" onclick="switchForm('login')">Đăng nhập ngay</a>
+                </div>
+            </form>
+
+
+            <!-- ================= 3. FORM QUÊN MẬT KHẨU ================= -->
+            <form id="form-forgot" class="auth-form" onsubmit="handleForgot(event)">
+                <div class="login-header">
+                    <h2>Quên Mật Khẩu</h2>
+                    <p>Nhập email để khôi phục lại mật khẩu</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="forgot-email">Email / Số điện thoại đăng ký</label>
+                    <div class="input-box">
+                        <span class="input-icon">✉️</span>
+                        <input type="text" id="forgot-email" placeholder="Nhập email cần lấy lại mật khẩu" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Gửi yêu cầu khôi phục</button>
+
+                <div class="register-link">
+                    Quay lại <a href="javascript:void(0)" onclick="switchForm('login')">Đăng nhập</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // Hàm chuyển đổi Ẩn / Hiện Mật khâu
+        function togglePasswordVisibility(inputId, iconElem) {
+            const passInput = document.getElementById(inputId);
+            if (passInput.type === "password") {
+                passInput.type = "text";
+                iconElem.innerText = "🙈"; // Đổi icon sang nhắm mắt khi hiển thị chữ
+            } else {
+                passInput.type = "password";
+                iconElem.innerText = "👁️"; // Đổi lại con mắt khi ẩn mật khẩu
+            }
+        }
+
+        // Tạo tài khoản mặc định vào LocalStorage nếu chưa có
+        if (!localStorage.getItem("users")) {
+            const defaultUsers = [{
+                email: "admin@gmail.com",
+                pass: "123456",
+                name: "Quản Trị Viên"
+            }];
+            localStorage.setItem("users", JSON.stringify(defaultUsers));
+        }
+
+        // Hàm hiển thị thông báo
+        function showAlert(msg, isSuccess = false) {
+            const alertBox = document.getElementById("alert-box");
+            alertBox.innerText = msg;
+            alertBox.className = "alert-msg " + (isSuccess ? "alert-success" : "alert-error");
+            alertBox.style.display = "block";
+            
+            setTimeout(() => {
+                alertBox.style.display = "none";
+            }, 4000);
+        }
+
+        // Chuyển đổi giữa các Form
+        function switchForm(formType) {
+            document.getElementById("alert-box").style.display = "none";
+            document.querySelectorAll(".auth-form").forEach(f => f.classList.remove("active"));
+            
+            if (formType === 'login') document.getElementById("form-login").classList.add("active");
+            if (formType === 'register') document.getElementById("form-register").classList.add("active");
+            if (formType === 'forgot') document.getElementById("form-forgot").classList.add("active");
+        }
+
+        // Hàm xử lý chung sau khi đăng nhập thành công
+        function onLoginSuccess(user) {
+            sessionStorage.setItem("currentUser", JSON.stringify(user));
+            showAlert("Đăng nhập thành công! Đang chuyển hướng...", true);
+            
+            const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+            
+            setTimeout(() => {
+                if (redirectUrl) {
+                    sessionStorage.removeItem("redirectAfterLogin");
+                    window.location.href = redirectUrl;
+                } else {
+                    window.location.href = "banner.html";
+                }
+            }, 1200);
+        }
+
+        // 1. Xử lý Đăng Nhập
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById("login-email").value.trim();
+            const pass = document.getElementById("login-pass").value;
+
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const foundUser = users.find(u => u.email === email && u.pass === pass);
+
+            if (foundUser) {
+                onLoginSuccess(foundUser);
+            } else {
+                showAlert("Sai email/số điện thoại hoặc mật khẩu!", false);
+            }
+        }
+
+        // 2. Xử lý Đăng Ký Tài Khoản
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById("reg-name").value.trim();
+            const email = document.getElementById("reg-email").value.trim();
+            const pass = document.getElementById("reg-pass").value;
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            
+            if (users.some(u => u.email === email)) {
+                showAlert("Email/SĐT này đã được đăng ký!", false);
+                return;
+            }
+
+            const newUser = { name, email, pass };
+            users.push(newUser);
+            localStorage.setItem("users", JSON.stringify(users));
+
+            showAlert("Đăng ký thành công! Đang tự động đăng nhập...", true);
+            
+            setTimeout(() => {
+                onLoginSuccess(newUser);
+            }, 1200);
+        }
+
+        // 3. Xử lý Quên Mật Khẩu
+        function handleForgot(event) {
+            event.preventDefault();
+            const email = document.getElementById("forgot-email").value.trim();
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            const foundUser = users.find(u => u.email === email);
+
+            if (foundUser) {
+                showAlert(`Mật khẩu của bạn là: ${foundUser.pass}`, true);
+            } else {
+                showAlert("Không tìm thấy tài khoản trong hệ thống!", false);
+            }
+        }
+
+        // 4. Đăng nhập qua Google / Facebook
+        function handleSocialLogin(provider) {
+            const socialUser = {
+                name: "Người dùng " + provider,
+                email: "user." + provider.toLowerCase() + "@gotravel.com"
+            };
+            onLoginSuccess(socialUser);
+        }
+    </script>
+
+</body>
+
+</html>

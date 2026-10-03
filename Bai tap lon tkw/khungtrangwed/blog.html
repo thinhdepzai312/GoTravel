@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cẩm Nang & Chia Sẻ Trải Nghiệm - GoTravel</title>
+
+    <link rel="stylesheet" href="style.css/banner.css">
+    <link rel="stylesheet" href="style.css/blog.css">
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="banner.html">Trang chủ</a>
+                <a href="diemden.html">Điểm đến</a>
+                <a href="tour.html">Tour du lịch</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="lienhe.html">Liên hệ</a>
+            </nav>
+            <div id="user-account-area">
+                <button type="button" class="login" onclick="window.location.href='login.html'">Đăng nhập</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-container">
+
+        <div class="blog-header-title">
+            <h2>Cẩm Nang & Chia Sẻ Trải Nghiệm Du Lịch</h2>
+            <p>Cập nhật tin tức, mẹo hay và chia sẻ những khoảnh khắc đáng nhớ từ cộng đồng</p>
+        </div>
+
+        <div class="blog-action-bar">
+            <button type="button" class="btn-open-share" onclick="toggleShareForm()">
+                ✍️ Viết Bài Chia Sẻ Trải Nghiệm
+            </button>
+        </div>
+
+        <div id="shareFormCard" class="share-form-card" style="display: none;">
+            <div class="share-form-title">
+                <span>🏕️ Chia sẻ trải nghiệm chuyến đi của bạn</span>
+            </div>
+
+            <form id="blogPostForm" onsubmit="handleCreatePost(event)">
+                <div class="form-row-2">
+                    <input type="text" id="postTitle" class="form-input-custom" placeholder="Tiêu đề bài viết (VD: Lịch trình du lịch Đà Nẵng 3 ngày 2 đêm...)" required>
+                    <select id="postCategory" class="form-input-custom">
+                        <option value="💡 Cẩm nang du lịch">💡 Cẩm nang du lịch</option>
+                        <option value="🏖️ Trải nghiệm thực tế">🏖️ Trải nghiệm thực tế</option>
+                        <option value="🍲 Ẩm thực & Địa điểm">🍲 Ẩm thực & Địa điểm</option>
+                        <option value="⭐ Đánh giá Tour">⭐ Đánh giá Tour</option>
+                    </select>
+                </div>
+
+                <div class="form-margin-bottom">
+                    <input type="url" id="postImgUrl" class="form-input-custom" placeholder="Link ảnh minh họa (URL ảnh từ Internet - để trống sẽ dùng ảnh mặc định)">
+                </div>
+
+                <div class="form-margin-bottom">
+                    <textarea id="postContent" class="form-input-custom" placeholder="Nhập nội dung chia sẻ, kinh nghiệm, cảm nhận chuyến đi của bạn tại đây..." required></textarea>
+                </div>
+
+                <div class="form-footer-action">
+                    <div class="author-info-tag">
+                        Đăng bởi: <strong id="authorNameDisplay">Khách du lịch</strong>
+                    </div>
+                    <button type="submit" class="btn-submit-post">Đăng bài ngay</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- LƯỚI HIỂN THỊ DANH SÁCH BÀI VIẾT CÔNG KHAI -->
+        <div class="blog-grid" id="blogGrid">
+            <!-- Bài viết sẽ tự động render tại đây -->
+        </div>
+
+    </main>
+
+    <!-- ================= MODAL XEM CHI TIẾT BÀI VIẾT & ĐÁNH GIÁ ================= -->
+    <div id="readBlogModal" class="modal-overlay">
+        <div class="modal-card-blog">
+            <img id="modalBlogImg" src="" alt="Ảnh bài viết" class="modal-blog-img">
+            <div class="modal-blog-content">
+                <span id="modalBlogCategory" class="blog-category-badge">💡 Cẩm nang</span>
+                <h3 id="modalBlogTitle" class="modal-blog-title"></h3>
+                <div class="modal-blog-meta">
+                    <span id="modalBlogAuthor">👤 Đăng bởi: Admin</span>
+                    <span id="modalBlogDate">📅 Ngày đăng: 2026-10-23</span>
+                </div>
+                
+                <div id="modalBlogText" class="modal-blog-text"></div>
+
+                <!-- KHUNG ĐÁNH GIÁ VÀ BÌNH CHỌN ĐỘ TIN CẬY -->
+                <div class="interactive-evaluation-card">
+                    <div class="eval-title">🌟 Đánh giá & Độ tin cậy từ Cộng Đồng</div>
+                    <div class="eval-grid">
+                        
+                        <!-- Ô 1: Chấm Sao -->
+                        <div class="eval-box">
+                            <div class="eval-box-label">Chấm điểm bài viết này:</div>
+                            <div class="interactive-stars" id="modalStarSelector">
+                                <span class="star-btn" data-star="1">★</span>
+                                <span class="star-btn" data-star="2">★</span>
+                                <span class="star-btn" data-star="3">★</span>
+                                <span class="star-btn" data-star="4">★</span>
+                                <span class="star-btn" data-star="5">★</span>
+                            </div>
+                            <small id="userStarNotice" style="color: #64748b; font-size: 11px; margin-top: 4px; display: block;"></small>
+                        </div>
+
+                        <!-- Ô 2: Xác thực Độ tin cậy -->
+                        <div class="eval-box">
+                            <div class="eval-box-label">Xác thực độ đáng tin cậy:</div>
+                            <div class="reliability-btns">
+                                <button type="button" class="btn-vote-rel up" id="btnVoteUp" onclick="voteReliability('up')">🛡️ Hữu ích / Tin cậy</button>
+                                <button type="button" class="btn-vote-rel down" id="btnVoteDown" onclick="voteReliability('down')">⚠️ Cần kiểm chứng</button>
+                            </div>
+                            <small id="userVoteNotice" style="color: #64748b; font-size: 11px; margin-top: 4px; display: block;"></small>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer-close">
+                <button type="button" class="btn-close-modal" onclick="closeBlogModal()">Đóng bài viết</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // Danh sách bài viết mẫu mặc định
+        const defaultBlogPosts = [
+            {
+                id: 1,
+                title: "Kinh nghiệm du lịch Vịnh Hạ Long trọn gói cho gia đình",
+                category: "💡 Cẩm nang du lịch",
+                author: "Nguyễn Đức Đại Thịnh",
+                date: "2026-10-15",
+                image: "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800",
+                content: "Vịnh Hạ Long là địa điểm tuyệt vời cho các kỳ nghỉ gia đình. Bạn nên chọn trải nghiệm du thuyền 5 sao để hưởng trọn vẹn dịch vụ cao cấp bao gồm ăn trưa hải sản, chèo thuyền Kayak thăm Hang Sửng Sốt và ngắm hoàng hôn trên biển.",
+                ratings: { "admin@gmail.com": 5, "user1@gmail.com": 5 },
+                reliability: { "admin@gmail.com": "up", "user1@gmail.com": "up" }
+            },
+            {
+                id: 2,
+                title: "Trải nghiệm săn mây đỉnh Fansipan Sapa 2 ngày 1 đêm",
+                category: "🏖️ Trải nghiệm thực tế",
+                author: "Trần Minh Anh",
+                date: "2026-10-18",
+                image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=800",
+                content: "Sapa mùa này thời tiết rất đẹp, thích hợp cho việc săn mây trên đỉnh Fansipan. Hành trình đi cáp treo vượt qua biển mây tạo cảm giác ấn tượng khó quên. Đừng quên mang theo áo ấm vì nhiệt độ trên đỉnh núi rất thấp!",
+                ratings: { "admin@gmail.com": 4 },
+                reliability: { "admin@gmail.com": "up" }
+            }
+        ];
+
+        let currentUser = null;
+        let currentActivePostIndex = null;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const userArea = document.getElementById("user-account-area");
+            const authorNameDisplay = document.getElementById("authorNameDisplay");
+
+            if (currentUser) {
+                if (authorNameDisplay) {
+                    authorNameDisplay.innerText = currentUser.name || currentUser.email;
+                }
+
+                if (userArea) {
+                    userArea.innerHTML = `
+                        <div class="user-menu-container">
+                            <div class="user-btn" onclick="toggleUserDropdown()">
+                                <span class="avatar-icon">👤</span>
+                                <span class="user-name">${currentUser.name || currentUser.email}</span>
+                                <small>▼</small>
+                            </div>
+                            <div id="user-dropdown" class="user-dropdown">
+                                <div class="dropdown-header">
+                                    <strong>${currentUser.name || "Khách hàng"}</strong>
+                                    <small>${currentUser.email}</small>
+                                </div>
+                                <hr>
+                                <a href="mytours.html">📋 Tour của tôi</a>
+                                <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            loadAndRenderPosts();
+            setupInteractiveStars();
+        });
+
+        // Toggle Khung Đăng bài
+        function toggleShareForm() {
+            if (!currentUser) {
+                alert("Bạn cần đăng nhập tài khoản trước khi đăng bài chia sẻ!");
+                sessionStorage.setItem("redirectAfterLogin", window.location.href);
+                window.location.href = "login.html";
+                return;
+            }
+
+            const formCard = document.getElementById("shareFormCard");
+            if (formCard.style.display === "none" || formCard.style.display === "") {
+                formCard.style.display = "block";
+                formCard.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                formCard.style.display = "none";
+            }
+        }
+
+        // Lấy danh sách từ LocalStorage
+        function getSavedPosts() {
+            const saved = localStorage.getItem("communityBlogPosts");
+            if (saved) {
+                return JSON.parse(saved);
+            } else {
+                localStorage.setItem("communityBlogPosts", JSON.stringify(defaultBlogPosts));
+                return defaultBlogPosts;
+            }
+        }
+
+        // Tính điểm Trung bình Sao & % Độ tin cậy
+        function calculatePostStats(post) {
+            const ratingsObj = post.ratings || {};
+            const ratingValues = Object.values(ratingsObj);
+            const totalRatings = ratingValues.length;
+            const avgStar = totalRatings > 0 
+                ? (ratingValues.reduce((a, b) => a + b, 0) / totalRatings).toFixed(1) 
+                : "Chưa có";
+
+            const relObj = post.reliability || {};
+            const relValues = Object.values(relObj);
+            const totalVotes = relValues.length;
+            const upVotes = relValues.filter(v => v === "up").length;
+            const relPercent = totalVotes > 0 
+                ? Math.round((upVotes / totalVotes) * 100) + "%" 
+                : "100%";
+
+            return { avgStar, totalRatings, relPercent, totalVotes };
+        }
+
+        // Render bài viết ra Lưới
+        function loadAndRenderPosts() {
+            const posts = getSavedPosts();
+            const grid = document.getElementById("blogGrid");
+            grid.innerHTML = "";
+
+            posts.forEach((post, index) => {
+                const defaultImg = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800";
+                const imgSrc = post.image && post.image.trim() !== "" ? post.image : defaultImg;
+                const stats = calculatePostStats(post);
+
+                const card = document.createElement("div");
+                card.className = "blog-card";
+                card.innerHTML = `
+                    <div class="blog-card-img-wrap">
+                        <img src="${imgSrc}" alt="${post.title}" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-category-badge">${post.category}</span>
+                        <h3 class="blog-card-title">${post.title}</h3>
+                        <p class="blog-card-snippet">${post.content}</p>
+
+                        <!-- Khung Điểm Sao & Độ Tin Cậy -->
+                        <div class="card-stats-row">
+                            <span class="star-score">⭐ ${stats.avgStar} / 5 (${stats.totalRatings})</span>
+                            <span class="reliability-score">🛡️ ${stats.relPercent} Tin cậy</span>
+                        </div>
+
+                        <div class="blog-card-footer">
+                            <span>👤 ${post.author}</span>
+                            <button type="button" class="btn-read-more" onclick="openBlogModal(${index})">Xem chi tiết →</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Tạo bài viết mới
+        function handleCreatePost(event) {
+            event.preventDefault();
+
+            const title = document.getElementById("postTitle").value.trim();
+            const category = document.getElementById("postCategory").value;
+            const image = document.getElementById("postImgUrl").value.trim();
+            const content = document.getElementById("postContent").value.trim();
+
+            const newPost = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                author: currentUser.name || currentUser.email,
+                date: new Date().toISOString().split('T')[0],
+                image: image,
+                content: content,
+                ratings: {},
+                reliability: {}
+            };
+
+            // Tự động cho bài của chính mình 5 Sao và 1 Vote Tin cậy
+            newPost.ratings[currentUser.email] = 5;
+            newPost.reliability[currentUser.email] = "up";
+
+            const posts = getSavedPosts();
+            posts.unshift(newPost);
+            localStorage.setItem("communityBlogPosts", JSON.stringify(posts));
+
+            document.getElementById("blogPostForm").reset();
+            document.getElementById("shareFormCard").style.display = "none";
+
+            alert("🎉 Đã đăng bài viết chia sẻ của bạn thành công!");
+            loadAndRenderPosts();
+        }
+
+        // Mở Modal xem chi tiết
+        function openBlogModal(index) {
+            currentActivePostIndex = index;
+            const posts = getSavedPosts();
+            const post = posts[index];
+            if (!post) return;
+
+            const defaultImg = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800";
+
+            document.getElementById("modalBlogImg").src = post.image && post.image.trim() !== "" ? post.image : defaultImg;
+            document.getElementById("modalBlogCategory").innerText = post.category;
+            document.getElementById("modalBlogTitle").innerText = post.title;
+            document.getElementById("modalBlogAuthor").innerText = `👤 Đăng bởi: ${post.author}`;
+            document.getElementById("modalBlogDate").innerText = `📅 Ngày: ${post.date}`;
+            document.getElementById("modalBlogText").innerText = post.content;
+
+            // Cập nhật trạng thái đánh giá cá nhân của user
+            updateModalEvaluationUI(post);
+
+            document.getElementById("readBlogModal").style.display = "flex";
+        }
+
+        // Cập nhật giao diện Đánh giá Sao & Vote Độ tin cậy trong Modal
+        function updateModalEvaluationUI(post) {
+            const userEmail = currentUser ? currentUser.email : null;
+
+            // 1. Cập nhật Sao
+            const stars = document.querySelectorAll("#modalStarSelector .star-btn");
+            const userStar = userEmail && post.ratings ? post.ratings[userEmail] : 0;
+            const noticeEl = document.getElementById("userStarNotice");
+
+            stars.forEach(s => {
+                const val = parseInt(s.getAttribute("data-star"));
+                if (val <= userStar) {
+                    s.classList.add("active");
+                } else {
+                    s.classList.remove("active");
+                }
+            });
+
+            if (userStar > 0) {
+                noticeEl.innerText = `Bạn đã chấm ${userStar} ⭐ cho bài viết này.`;
+            } else {
+                noticeEl.innerText = `Bấm vào sao để chấm điểm bài viết.`;
+            }
+
+            // 2. Cập nhật Vote Tin cậy
+            const btnUp = document.getElementById("btnVoteUp");
+            const btnDown = document.getElementById("btnVoteDown");
+            const voteNotice = document.getElementById("userVoteNotice");
+            const userVote = userEmail && post.reliability ? post.reliability[userEmail] : null;
+
+            btnUp.classList.remove("active");
+            btnDown.classList.remove("active");
+
+            if (userVote === "up") {
+                btnUp.classList.add("active");
+                voteNotice.innerText = "Bạn xác nhận bài viết này ĐÁNG TIN CẬY.";
+            } else if (userVote === "down") {
+                btnDown.classList.add("active");
+                voteNotice.innerText = "Bạn bình chọn bài viết CẦN KIỂM CHỨNG.";
+            } else {
+                voteNotice.innerText = "Bấm để bình chọn độ tin cậy của thông tin.";
+            }
+        }
+
+        // Khởi tạo Sự kiện Bấm Sao
+        function setupInteractiveStars() {
+            const stars = document.querySelectorAll("#modalStarSelector .star-btn");
+
+            stars.forEach(star => {
+                star.addEventListener("click", function () {
+                    if (!currentUser) {
+                        alert("Bạn cần đăng nhập để đánh giá bài viết!");
+                        return;
+                    }
+
+                    const starVal = parseInt(this.getAttribute("data-star"));
+                    const posts = getSavedPosts();
+                    const post = posts[currentActivePostIndex];
+
+                    if (!post.ratings) post.ratings = {};
+                    post.ratings[currentUser.email] = starVal;
+
+                    localStorage.setItem("communityBlogPosts", JSON.stringify(posts));
+                    updateModalEvaluationUI(post);
+                    loadAndRenderPosts();
+                });
+            });
+        }
+
+        // Sự kiện Bình chọn Độ tin cậy (Up / Down)
+        function voteReliability(voteType) {
+            if (!currentUser) {
+                alert("Bạn cần đăng nhập để bình chọn độ tin cậy!");
+                return;
+            }
+
+            const posts = getSavedPosts();
+            const post = posts[currentActivePostIndex];
+
+            if (!post.reliability) post.reliability = {};
+            post.reliability[currentUser.email] = voteType;
+
+            localStorage.setItem("communityBlogPosts", JSON.stringify(posts));
+            updateModalEvaluationUI(post);
+            loadAndRenderPosts();
+        }
+
+        function closeBlogModal() {
+            document.getElementById("readBlogModal").style.display = "none";
+            currentActivePostIndex = null;
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById("user-dropdown");
+            if (dropdown) dropdown.classList.toggle("show");
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem("currentUser");
+            window.location.href = "banner.html";
+        }
+    </script>
+</body>
+
+</html>

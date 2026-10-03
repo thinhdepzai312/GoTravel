@@ -1,0 +1,498 @@
+/* ===================================================
+   FILE CSS RIÊNG TRANG LỊCH SỬ TOUR (mytours.css)
+   =================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.5;
+}
+
+/* ================= KHU VỰC NỘI DUNG CHÍNH ================= */
+.history-container {
+    max-width: 1080px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: calc(100vh - 200px);
+}
+
+.page-title-box {
+    margin-bottom: 25px;
+}
+
+.page-title-box h2 {
+    font-size: 26px;
+    color: #0f172a;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-title-box p {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+/* ================= THẺ THỐNG KÊ (STATS CARDS) ================= */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #e0f2fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.stat-info h4 {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.stat-info span {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+/* ================= BẢNG DANH SÁCH TOUR ================= */
+.table-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f1f5f9;
+    overflow: hidden;
+}
+
+.tour-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tour-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tour-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+    color: #334155;
+    vertical-align: middle;
+}
+
+.tour-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.tour-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.tour-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* BADGES VÀ NÚT BẤM */
+.code-badge {
+    font-weight: 700;
+    color: #0878c9;
+    background: #e0f2fe;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    display: inline-block;
+}
+
+.tour-name-cell {
+    font-weight: 700;
+    color: #0f172a;
+    max-width: 320px;
+    line-height: 1.4;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-badge.confirmed {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-badge.canceled {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.price-cell {
+    color: #ef4444;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.action-btns-cell {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-detail {
+    background: #0878c9;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.btn-detail:hover {
+    background: #05629f;
+}
+
+.btn-cancel-tour {
+    background: #ef4444;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel-tour:hover {
+    background: #dc2626;
+}
+
+.btn-cancel-disabled {
+    background: #94a3b8 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ================= POPUP MODALS CHUNG ================= */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-card {
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 580px;
+    width: 100%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: popupScale 0.3s ease;
+}
+
+.modal-header {
+    background: #0878c9;
+    color: #ffffff;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header-cancel {
+    background: #dc2626;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ffffff;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 24px;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    background: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-close-modal {
+    background: #64748b;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-confirm-cancel {
+    background: #dc2626;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-confirm-cancel:hover {
+    background: #b91c1c;
+}
+
+/* MODAL CHI TIẾT ĐƠN HÀNG */
+.detail-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.detail-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.detail-section h4 {
+    font-size: 14px;
+    color: #0878c9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.detail-grid p.full-width {
+    grid-column: span 2;
+}
+
+.detail-grid strong {
+    color: #0f172a;
+}
+
+.detail-total-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.detail-total-box span {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.total-amount {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ef4444;
+}
+
+/* FORM HỦY ĐƠN & HOÀN TIỀN */
+.refund-info-box {
+    background-color: #fffbe0;
+    border: 1px solid #fef08a;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    color: #854d0e;
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.refund-info-box ul {
+    margin-top: 6px;
+    padding-left: 20px;
+}
+
+.cancel-field-group {
+    margin-bottom: 18px;
+}
+
+.cancel-label {
+    display: block;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.radio-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.cancel-field-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    resize: vertical;
+}
+
+.cancel-field-group textarea:focus {
+    border-color: #0878c9;
+}
+
+/* ĐÁNH GIÁ SAO */
+.star-rating {
+    display: flex;
+    gap: 8px;
+    font-size: 28px;
+    color: #cbd5e1;
+    cursor: pointer;
+    user-select: none;
+}
+
+.star-rating .star {
+    transition: color 0.2s ease;
+}
+
+.star-rating .star:hover,
+.star-rating .star.active {
+    color: #f59e0b;
+}
+
+/* KHUNG THÔNG BÁO TÙY CHỈNH (CUSTOM ALERT) */
+.custom-alert-card {
+    text-align: center;
+    padding: 28px 32px;
+}
+
+.custom-alert-header {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0878c9;
+    margin-bottom: 16px;
+    border-bottom: 1px dashed #cbd5e1;
+    padding-bottom: 10px;
+}
+
+.custom-alert-body {
+    font-size: 15px;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.btn-modal-alert-close {
+    background: #0878c9;
+    color: #ffffff;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-modal-alert-close:hover {
+    background: #05629f;
+}
+
+@keyframes popupScale {
+    from { opacity: 0; transform: scale(0.88); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .history-container { padding: 0 12px; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-grid p.full-width { grid-column: span 1; }
+}

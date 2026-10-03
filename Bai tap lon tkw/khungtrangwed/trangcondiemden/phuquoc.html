@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Phú Quốc - GoTravel</title>
+    <!-- Nhúng file CSS chi tiết trong cùng thư mục con -->
+    <link rel="stylesheet" href="detail.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo" onclick="location.href='../banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="../banner.html">Trang chủ</a>
+                <a href="../diemden.html">Điểm đến</a>
+                <a href="../tour.html">Tour du lịch</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../lienhe.html">Liên hệ</a>
+            </nav>
+            <div id="user-account-area">
+                <button type="button" class="login" onclick="window.location.href='../login.html'">Đăng nhập</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="detail-container">
+        <div class="detail-card">
+            <div class="detail-thumb">
+                <img src="https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=800" alt="Phú Quốc">
+            </div>
+
+            <div class="detail-info">
+                <div>
+                    <span class="location-tag">📍 PHÚ QUỐC, KIÊN GIANG</span>
+                    <h1 class="tour-title-main">Thiên Đường Biển Đảo Phú Quốc - Grand World - Hòn Thơm</h1>
+
+                    <div class="rating-box">
+                        <span class="rating-stars">★★★★★</span>
+                        <span>5.0 (128 đánh giá)</span>
+                    </div>
+
+                    <span class="duration-tag">⏱️ 4 Ngày 3 Đêm</span>
+                </div>
+
+                <div class="price-section">
+                    <div>
+                        <span class="price-label">Giá trọn gói / khách:</span>
+                        <div class="price-value">4.850.000đ</div>
+                    </div>
+                </div>
+
+                <!-- Nút đặt tour truyền đúng thông tin sang dattour.html -->
+                <a href="../dattour.html?tour=Thiên Đường Biển Đảo Phú Quốc - Grand World - Hòn Thơm&price=4850000" class="btn-booking">ĐẶT TOUR NGAY</a>
+            </div>
+        </div>
+
+        <div class="itinerary-card">
+            <h2>🗺️ Lịch Trình Chi Tiết Chuyến Đi</h2>
+
+            <div class="day-item">
+                <strong>Ngày 1: Đón Khách - Grand World Phú Quốc</strong>
+                <p>Xe đón đoàn tại sân bay Phú Quốc, về khách sạn nhận phòng nghỉ ngơi. Buổi tối khám phá "Thành phố không ngủ" Grand World và xem show diễn Tinh Hoa Việt Nam.</p>
+            </div>
+
+            <div class="day-item">
+                <strong>Ngày 2: Cáp Treo Hòn Thơm - Công Viên Nước Aquatopia</strong>
+                <p>Trải nghiệm cáp treo vượt biển dài nhất thế giới sang Hòn Thơm. Vui chơi thả ga tại công viên nước Aquatopia hiện đại.</p>
+            </div>
+
+            <div class="day-item">
+                <strong>Ngày 3: Tour 4 Đảo - Lặn Ngắm San Hô Hòn Mây Rút</strong>
+                <p>Cano đưa đoàn đi khám phá 4 đảo hoang sơ, trải nghiệm lặn ngắm san hô tự nhiên và chụp ảnh SUP ngắm hoàng hôn.</p>
+            </div>
+
+            <div class="day-item">
+                <strong>Ngày 4: Mua Sắm Đặc Sản - Tiễn Sân Bay Phú Quốc</strong>
+                <p>Ghé thăm cơ sở nuôi cấy ngọc trai, nhà thùng nước mắm truyền thống và tiễn đoàn ra sân bay trở về.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

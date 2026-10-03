@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Du lịch Việt Nam - GoTravel</title>
+    
+<link rel="stylesheet" href="style.css/banner.css">
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="banner.html">Trang chủ</a>
+                <a href="diemden.html">Điểm đến</a>
+                <a href="tour.html">Tour du lịch</a>
+                <a href="blog.html">Blog</a>
+                <a href="lienhe.html">Liên hệ</a>
+            </nav>
+            <div id="user-account-area">
+                <button type="button" class="login" onclick="window.location.href='login.html'">Đăng nhập</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= BANNER / HERO SECTION ================= -->
+    <section class="banner">
+        <div class="banner-content">
+            <p class="subtitle">✈ Khám phá thế giới</p>
+            <h1>Những hành trình đáng nhớ</h1>
+            <p class="description">Cùng GoTravel khám phá những điểm đến tuyệt vời, trải nghiệm văn hóa, ẩm thực và những khoảnh khắc đẹp nhất trong cuộc sống.</p>
+
+            <!-- THANH TÌM KIẾM TOUR -->
+            <div class="search-box">
+                <div class="search-item">
+                    <label>📍 ĐỊA ĐIỂM</label>
+                    <input type="text" placeholder="Bạn muốn đi đâu?">
+                </div>
+              <div class="search-item">
+    <label>📅 THỜI GIAN</label>
+    <input type="text" class="date-input-custom" placeholder="Chọn ngày đi" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+</div>
+                <div class="search-item">
+                    <label>👥 SỐ NGƯỜI</label>
+                    <select>
+                        <option>1 người</option>
+                        <option selected>2 người</option>
+                        <option>3 - 5 người</option>
+                        <option>Trên 5 người</option>
+                    </select>
+                </div>
+                <button type="button" class="btn-search" onclick="window.location.href='diemden.html'">🔍 Tìm kiếm</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TÍNH NĂNG NỔI BẬT ================= -->
+    <section class="features">
+        <div class="feature">
+            <span class="feature-icon">🎒</span>
+            <div>
+                <h3>Tour đa dạng</h3>
+                <p>Hơn 100+ tour du lịch hấp dẫn</p>
+            </div>
+        </div>
+        <div class="feature">
+            <span class="feature-icon">🛡️</span>
+            <div>
+                <h3>An toàn, uy tín</h3>
+                <p>Bảo hiểm du lịch trọn gói</p>
+            </div>
+        </div>
+        <div class="feature">
+            <span class="feature-icon">🎧</span>
+            <div>
+                <h3>Hỗ trợ 24/7</h3>
+                <p>Luôn sẵn sàng tư vấn giải đáp</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= JS XỬ LÝ ĐĂNG NHẬP & MENU TÀI KHOẢN ================= -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const userArea = document.getElementById("user-account-area");
+
+            if (currentUser) {
+                userArea.innerHTML = `
+                    <div class="user-menu-container">
+                        <div class="user-btn" onclick="toggleUserDropdown()">
+                            <span class="avatar-icon">👤</span>
+                            <span class="user-name">${currentUser.name || currentUser.email}</span>
+                            <small>▼</small>
+                        </div>
+                        <div id="user-dropdown" class="user-dropdown">
+                            <div class="dropdown-header">
+                                <strong>${currentUser.name || "Khách hàng"}</strong>
+                                <br><small>${currentUser.phone || currentUser.email}</small>
+                            </div>
+                            <hr>
+                            <a href="mytours.html">📋 Tour của tôi</a>
+                            <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById("user-dropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem("currentUser");
+            window.location.href = "banner.html";
+        }
+    </script>
+
+</body>
+
+</html>

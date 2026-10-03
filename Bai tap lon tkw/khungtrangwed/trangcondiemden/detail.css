@@ -1,0 +1,245 @@
+/* ===================================================
+   FILE CSS DÙNG CHUNG CHO TẤT CẢ CÁC TRANG CON (trangcondiemden)
+   =================================================== */
+
+/* 1. RESET VÀ BỐ CỤC CHUNG */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 2. HEADER TRANG CON */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0878c9;
+    cursor: pointer;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav {
+    display: flex;
+    gap: 24px;
+}
+
+nav a {
+    color: #475569;
+    font-weight: 600;
+    font-size: 15px;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #0878c9;
+}
+
+.login {
+    background-color: #0878c9;
+    color: #ffffff;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 3. KHUNG HIỂN THỊ THÔNG TIN TOUR (KHỐI TRÊN) */
+.detail-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.detail-card {
+    display: flex;
+    gap: 32px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    margin-bottom: 30px;
+}
+
+.detail-thumb {
+    width: 45%;
+    height: 350px;
+    border-radius: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.detail-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.detail-info {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.location-tag {
+    color: #0878c9;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.tour-title-main {
+    font-size: 22px;
+    color: #0f172a;
+    margin: 10px 0 12px 0;
+    line-height: 1.4;
+    font-weight: 800;
+}
+
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.rating-stars {
+    color: #f59e0b;
+    font-weight: 700;
+}
+
+.duration-tag {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* KHUNG GIÁ VÀ NÚT ĐẶT TOUR */
+.price-box-wrapper {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px dashed #cbd5e1;
+    margin-top: 15px;
+}
+
+.price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.price-label {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.price-value {
+    font-size: 26px;
+    color: #ef4444;
+    font-weight: 800;
+}
+
+.btn-booking {
+    display: block;
+    width: 100%;
+    background: #0878c9;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.btn-booking:hover {
+    background: #05629f;
+}
+
+/* 4. KHUNG LỊCH TRÌNH CHUYẾN ĐI (KHỐI DƯỚI) */
+.itinerary-card {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+}
+
+.itinerary-card h2 {
+    font-size: 20px;
+    margin-bottom: 24px;
+    color: #0f172a;
+    font-weight: 800;
+}
+
+.day-item {
+    margin-bottom: 20px;
+    padding-left: 18px;
+    border-left: 3px solid #0878c9;
+}
+
+.day-item strong {
+    color: #0878c9;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.day-item p {
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE DI ĐỘNG */
+@media (max-width: 850px) {
+    .detail-card {
+        flex-direction: column;
+    }
+    .detail-thumb, .detail-info {
+        width: 100%;
+    }
+    .detail-thumb {
+        height: 240px;
+    }
+}

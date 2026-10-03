@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Đặt Tour - GoTravel</title>
+    <link rel="stylesheet" href="style.css/banner.css">
+    <link rel="stylesheet" href="style.css/dattour.css">
+
+    <style>
+        /* ================= KHUNG THÔNG BÁO TÙY CHỈNH (THAY THẾ ALERT) ================= */
+        .custom-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom-modal-card {
+            background: #ffffff;
+            padding: 28px 32px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            animation: popupScale 0.3s ease;
+        }
+
+        .custom-modal-header {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0878c9;
+            margin-bottom: 16px;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 10px;
+        }
+
+        .custom-modal-body {
+            font-size: 15px;
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .btn-modal-close {
+            background: #0878c9;
+            color: #ffffff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-modal-close:hover {
+            background: #05629f;
+        }
+
+        @keyframes popupScale {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="banner.html">Trang chủ</a>
+                <a href="diemden.html">Điểm đến</a>
+                <a href="tour.html">Tour du lịch</a>
+                <a href="blog.html">Blog</a>
+                <a href="lienhe.html">Liên hệ</a>
+            </nav>
+            <div id="user-account-area">
+                <button type="button" class="login" onclick="window.location.href='login.html'">Đăng nhập</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= FORM ĐĂNG KÝ ĐẶT TOUR ================= -->
+    <div class="booking-container">
+        <h2 class="booking-title">📋 Đăng Ký Thông Tin Đặt Tour</h2>
+
+        <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+            <div class="form-group">
+                <label for="tourName">Tour đăng ký</label>
+                <input type="text" id="tourName" readonly class="input-readonly">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Họ và tên khách hàng *</label>
+                    <input type="text" id="fullName" required placeholder="Ví dụ: Nguyễn Văn A">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại liên hệ *</label>
+                    <input type="tel" id="phone" required placeholder="Ví dụ: 0987654321">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Địa chỉ Email *</label>
+                    <input type="email" id="email" required placeholder="example@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="departureDate">Ngày khởi hành dự kiến *</label>
+                    <input type="date" id="departureDate" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="quantity">Số lượng khách *</label>
+                    <input type="number" id="quantity" min="1" value="1" oninput="calculateTotal()" onchange="calculateTotal()" required>
+                </div>
+                <div class="form-group">
+                    <label for="note">Ghi chú thêm (nếu có)</label>
+                    <input type="text" id="note" placeholder="Yêu cầu ăn chay, hỗ trợ đưa đón...">
+                </div>
+            </div>
+
+            <!-- BẢNG TÍNH TỔNG TIỀN TỰ ĐỘNG -->
+            <div class="summary-box">
+                <div class="summary-item">
+                    <span>Đơn giá / khách:</span>
+                    <strong id="unitPriceText">0đ</strong>
+                </div>
+                <div class="summary-item summary-total">
+                    <span class="total-label">TỔNG THÀNH TIỀN:</span>
+                    <span class="total-price" id="totalPriceText">0đ</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit-booking">XÁC NHẬN ĐĂNG KÝ TOUR</button>
+        </form>
+    </div>
+
+    <!-- ================= KHUNG THÔNG BÁO TÙY CHỈNH GOTRAVEL ================= -->
+    <div id="customAlertModal" class="custom-modal-overlay">
+        <div class="custom-modal-card">
+            <div class="custom-modal-header">🎉 THÔNG BÁO GOTRAVEL</div>
+            <div class="custom-modal-body" id="customAlertContent"></div>
+            <button type="button" class="btn-modal-close" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        let unitPrice = 0;
+        let currentUser = null;
+        let onModalCloseCallback = null;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. KIỂM TRA ĐĂNG NHẬP
+            currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            if (!currentUser) {
+                sessionStorage.setItem("redirectAfterLogin", window.location.href);
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Hiển thị giao diện người dùng ở Header
+            const userArea = document.getElementById("user-account-area");
+            userArea.innerHTML = `
+                <div class="user-menu-container">
+                    <div class="user-btn" onclick="toggleUserDropdown()">
+                        <span class="avatar-icon">👤</span>
+                        <span class="user-name">${currentUser.name || currentUser.email}</span>
+                        <small>▼</small>
+                    </div>
+                    <div id="user-dropdown" class="user-dropdown">
+                        <div class="dropdown-header">
+                            <strong>${currentUser.name || "Khách hàng"}</strong>
+                            <small>${currentUser.email}</small>
+                        </div>
+                        <hr>
+                        <a href="mytours.html">📋 Tour của tôi</a>
+                        <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
+                    </div>
+                </div>
+            `;
+
+            // Tự động điền thông tin người dùng có sẵn
+            if (currentUser.name) document.getElementById('fullName').value = currentUser.name;
+            if (currentUser.email) document.getElementById('email').value = currentUser.email;
+
+            // 2. ĐỌC GIÁ TIỀN VÀ TÊN TOUR TỪ URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const tourParam = urlParams.get('tour') || 'Tour Du Lịch Trọn Gói';
+            const priceParam = parseInt(urlParams.get('price')) || 3490000;
+
+            unitPrice = priceParam;
+            document.getElementById('tourName').value = tourParam;
+            document.getElementById('unitPriceText').innerText = priceParam.toLocaleString('vi-VN') + 'đ';
+
+            calculateTotal();
+        });
+
+        function calculateTotal() {
+            const qty = parseInt(document.getElementById('quantity').value) || 1;
+            const total = unitPrice * qty;
+            document.getElementById('totalPriceText').innerText = total.toLocaleString('vi-VN') + 'đ';
+        }
+
+        // 3. LƯU THÔNG TIN ĐẶT TOUR VÀO TÀI KHOẢN
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+
+            const qty = parseInt(document.getElementById('quantity').value) || 1;
+            const total = unitPrice * qty;
+
+            const bookingData = {
+                id: 'GT' + Date.now().toString().slice(-6),
+                userEmail: currentUser.email,
+                tourName: document.getElementById('tourName').value,
+                fullName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                departureDate: document.getElementById('departureDate').value,
+                quantity: qty,
+                unitPrice: unitPrice,
+                totalPrice: total,
+                note: document.getElementById('note').value || 'Không có',
+                bookingDate: new Date().toLocaleDateString('vi-VN')
+            };
+
+            // Lấy danh sách tour đã lưu hoặc tạo mới
+            let allBookings = JSON.parse(localStorage.getItem('myBookedTours')) || [];
+            allBookings.push(bookingData);
+            localStorage.setItem('myBookedTours', JSON.stringify(allBookings));
+
+            // Hiển thị Khung thông báo đẹp thay thế alert()
+            showCustomAlert(`
+                <p style="text-align: center; font-weight: bold; font-size: 16px; color: #1e293b; margin-bottom: 12px;">
+                    🎉 CHÚC MỪNG ${bookingData.fullName.toUpperCase()}!
+                </p>
+                <p style="margin-bottom: 8px;">Bạn đã đăng ký thành công tour:</p>
+                <p style="color: #0878c9; font-weight: bold; margin-bottom: 12px;">👉 ${bookingData.tourName}</p>
+                <p style="font-size: 13px; color: #64748b;">Xem chi tiết thông tin trong danh sách <strong>"Tour của tôi"</strong>.</p>
+            `, function () {
+                window.location.href = 'mytours.html';
+            });
+        }
+
+        // Hàm mở Modal Thông báo
+        function showCustomAlert(contentHTML, callback = null) {
+            document.getElementById("customAlertContent").innerHTML = contentHTML;
+            document.getElementById("customAlertModal").style.display = "flex";
+            onModalCloseCallback = callback;
+        }
+
+        // Hàm đóng Modal và gọi Callback (chuyển trang)
+        function closeCustomAlert() {
+            document.getElementById("customAlertModal").style.display = "none";
+            if (typeof onModalCloseCallback === "function") {
+                onModalCloseCallback();
+                onModalCloseCallback = null;
+            }
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById("user-dropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem("currentUser");
+            window.location.href = "banner.html";
+        }
+    </script>
+</body>
+
+</html>

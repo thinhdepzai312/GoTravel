@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm đến - GoTravel</title>
+
+    <!-- Nhúng CSS chung và CSS riêng của trang Điểm Đến -->
+    <link rel="stylesheet" href="style.css/banner.css">
+    <link rel="stylesheet" href="style.css/diemden.css">
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="banner.html">Trang chủ</a>
+                <a href="diemden.html">Điểm đến</a>
+                <a href="tour.html">Tour du lịch</a>
+                <a href="blog.html">Blog</a>
+                <a href="lienhe.html">Liên hệ</a>
+            </nav>
+            
+            <!-- KHU VỰC TÀI KHOẢN (TỰ ĐỘNG ĐỔI KHI ĐĂNG NHẬP) -->
+            <div id="user-account-area">
+                <button type="button" class="login" onclick="window.location.href='login.html'">Đăng nhập</button>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ================= DANH SÁCH TOUR TẠI CÁC ĐIỂM ĐẾN ================= -->
+    <section class="destinations-section">
+        
+        <div class="section-header">
+            <h2>Khám Phá Các Điểm Đến Nổi Bật</h2>
+            <p>Chọn lựa những hành trình tuyệt vời nhất được thiết kế riêng cho bạn</p>
+        </div>
+
+        <div class="tours-grid">
+
+            <!-- Tour 1: Hạ Long -->
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800" alt="Vịnh Hạ Long">
+                    <span class="tour-badge">Bán chạy</span>
+                </div>
+                <div class="tour-content">
+                    <div class="tour-location">📍 Quảng Ninh</div>
+                    <h3 class="tour-title">Tour Du Thuyền 5 Sao Khám Phá Vịnh Hạ Long - Đảo Ti Tốp</h3>
+                    <div class="tour-info">
+                        <span>⏱ 3 Ngày 2 Đêm</span>
+                        <span>⭐ 4.9 (120 đánh giá)</span>
+                    </div>
+                    <div class="tour-footer">
+                        <div class="tour-price">
+                            <small>Giá từ</small>
+                            <span>3.490.000đ</span>
+                        </div>
+                        <a href="trangcondiemden/halong.html" class="btn-book">Xem Tour</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tour 2: Phú Quốc -->
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800" alt="Phú Quốc">
+                    <span class="tour-badge">Hot</span>
+                </div>
+                <div class="tour-content">
+                    <div class="tour-location">📍 Kiên Giang</div>
+                    <h3 class="tour-title">Thiên Đường Biển Đảo Phú Quốc - Grand World - Hòn Thơm</h3>
+                    <div class="tour-info">
+                        <span>⏱ 4 Ngày 3 Đêm</span>
+                        <span>⭐ 4.8 (95 đánh giá)</span>
+                    </div>
+                    <div class="tour-footer">
+                        <div class="tour-price">
+                            <small>Giá từ</small>
+                            <span>4.850.000đ</span>
+                        </div>
+                        <a href="trangcondiemden/phuquoc.html" class="btn-book">Xem Tour</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tour 3: Đà Nẵng -->
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=800" alt="Đà Nẵng">
+                </div>
+                <div class="tour-content">
+                    <div class="tour-location">📍 Đà Nẵng - Quảng Nam</div>
+                    <h3 class="tour-title">Hành Trình Di Sản: Đà Nẵng - Bà Nà Hills - Phố Cổ Hội An</h3>
+                    <div class="tour-info">
+                        <span>⏱ 3 Ngày 2 Đêm</span>
+                        <span>⭐ 5.0 (210 đánh giá)</span>
+                    </div>
+                    <div class="tour-footer">
+                        <div class="tour-price">
+                            <small>Giá từ</small>
+                            <span>2.990.000đ</span>
+                        </div>
+                        <a href="trangcondiemden/danang.html" class="btn-book">Xem Tour</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tour 4: Sapa -->
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=800" alt="Sapa">
+                </div>
+                <div class="tour-content">
+                    <div class="tour-location">📍 Lào Cai</div>
+                    <h3 class="tour-title">Sapa Mờ Sương - Chinh Phục Đỉnh Fansipan - Bản Cát Cát</h3>
+                    <div class="tour-info">
+                        <span>⏱ 2 Ngày 1 Đêm</span>
+                        <span>⭐ 4.7 (88 đánh giá)</span>
+                    </div>
+                    <div class="tour-footer">
+                        <div class="tour-price">
+                            <small>Giá từ</small>
+                            <span>1.950.000đ</span>
+                        </div>
+                        <a href="trangcondiemden/sapa.html" class="btn-book">Xem Tour</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tour 5: Đà Lạt -->
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800" alt="Đà Lạt">
+                    <span class="tour-badge">Giảm 15%</span>
+                </div>
+                <div class="tour-content">
+                    <div class="tour-location">📍 Lâm Đồng</div>
+                    <h3 class="tour-title">Khám Phá Thành Phố Ngàn Hoa Đà Lạt - Thác Datanla</h3>
+                    <div class="tour-info">
+                        <span>⏱ 3 Ngày 3 Đêm</span>
+                        <span>⭐ 4.9 (150 đánh giá)</span>
+                    </div>
+                    <div class="tour-footer">
+                        <div class="tour-price">
+                            <small>Giá từ</small>
+                            <span>2.450.000đ</span>
+                        </div>
+                        <a href="trangcondiemden/dalat.html" class="btn-book">Xem Tour</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tour 6: Ninh Bình -->
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800" alt="Ninh Bình">
+                </div>
+                <div class="tour-content">
+                    <div class="tour-location">📍 Ninh Bình</div>
+                    <h3 class="tour-title">Tuyệt Tình Cốc Ninh Bình - Tràng An - Chùa Bái Đính</h3>
+                    <div class="tour-info">
+                        <span>⏱ 1 Ngày</span>
+                        <span>⭐ 4.8 (64 đánh giá)</span>
+                    </div>
+                    <div class="tour-footer">
+                        <div class="tour-price">
+                            <small>Giá từ</small>
+                            <span>850.000đ</span>
+                        </div>
+                        <a href="trangcondiemden/ninhbinh.html" class="btn-book">Xem Tour</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER FEATURES ================= -->
+    <section class="features">
+        <div class="feature">
+            <span class="feature-icon">✈️</span>
+            <div>
+                <h3>Tour đa dạng</h3>
+                <p>Trong nước & quốc tế</p>
+            </div>
+        </div>
+        <div class="feature">
+            <span class="feature-icon">🛡️</span>
+            <div>
+                <h3>An toàn, uy tín</h3>
+                <p>Đồng hành cùng bạn</p>
+            </div>
+        </div>
+        <div class="feature">
+            <span class="feature-icon">🎧</span>
+            <div>
+                <h3>Hỗ trợ 24/7</h3>
+                <p>Luôn sẵn sàng</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS KIỂM TRA TRẠNG THÁI ĐĂNG NHẬP -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const userArea = document.getElementById("user-account-area");
+
+            if (currentUser) {
+                userArea.innerHTML = `
+                    <div class="user-menu-container">
+                        <div class="user-btn" onclick="toggleUserDropdown()">
+                            <span class="avatar-icon">👤</span>
+                            <span class="user-name">${currentUser.name || currentUser.email}</span>
+                            <small>▼</small>
+                        </div>
+                        <div id="user-dropdown" class="user-dropdown">
+                            <div class="dropdown-header">
+                                <strong>${currentUser.name || "Khách hàng"}</strong>
+                                <small>${currentUser.email}</small>
+                            </div>
+                            <hr>
+                            <a href="#">📋 Tour của tôi</a>
+                            <a href="#">⚙️ Cài đặt tài khoản</a>
+                            <hr>
+                            <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById("user-dropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-menu-container')) {
+                const dropdowns = document.getElementsByClassName("user-dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].classList.remove('show');
+                }
+            }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem("currentUser");
+            window.location.reload();
+        }
+    </script>
+
+</body>
+
+</html>

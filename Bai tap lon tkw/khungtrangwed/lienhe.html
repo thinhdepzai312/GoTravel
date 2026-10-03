@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ - GoTravel</title>
+
+    <link rel="stylesheet" href="style.css/banner.css">
+    <link rel="stylesheet" href="style.css/lienhe.css">
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+    <a href="banner.html">Trang chủ</a>
+    <a href="diemden.html">Điểm đến</a>
+    <a href="tour.html">Tour du lịch</a>
+    <a href="blog.html">Blog</a>
+    <a href="lienhe.html">Liên hệ</a>
+</nav>
+            <div id="user-account-area">
+                <button type="button" class="login" onclick="window.location.href='login.html'">Đăng nhập</button>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ================= NỘI DUNG LIÊN HỆ ================= -->
+    <section class="contact-container">
+        
+        <div class="section-header">
+            <h2>Liên Hệ Với Chúng Tôi</h2>
+            <p>GoTravel luôn sẵn sàng tư vấn và giải đáp mọi thắc mắc của bạn 24/7</p>
+        </div>
+
+        <div class="contact-wrapper">
+            
+            <!-- Cột trái: Thông tin liên hệ -->
+            <div class="contact-info">
+                <h3>Thông Tin Liên Hệ</h3>
+                
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div class="info-text">
+                        <h4>Địa chỉ văn phòng</h4>
+                        <p>Số 123 Đường Cầu Giấy, Quận Cầu Giấy, Hà Nội</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div class="info-text">
+                        <h4>Hotline hỗ trợ</h4>
+                        <p>1900 6789 - 0988 123 456</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">✉️</span>
+                    <div class="info-text">
+                        <h4>Email hỗ trợ</h4>
+                        <p>support@gotravel.com.vn</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">⏰</span>
+                    <div class="info-text">
+                        <h4>Giờ làm việc</h4>
+                        <p>Thứ 2 - Chủ Nhật: 08:00 - 21:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải: Form gửi tin nhắn -->
+            <form class="contact-form" onsubmit="handleContactSubmit(event)">
+                <h3>Gửi Tin Nhắn Tư Vấn</h3>
+                
+                <div class="form-group">
+                    <label>Họ và Tên</label>
+                    <input type="text" id="contact-name" placeholder="Nhập họ và tên của bạn" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email hoặc Số điện thoại</label>
+                    <input type="text" id="contact-email" placeholder="Nhập email hoặc SĐT để phản hồi" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nội dung yêu cầu</label>
+                    <textarea id="contact-msg" rows="4" placeholder="Nhập câu hỏi, yêu cầu đặt tour hoặc góp ý..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-send">Gửi liên hệ ngay</button>
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+    <section class="features">
+        <div class="feature"><span class="feature-icon">✈️</span><div><h3>Tour đa dạng</h3><p>Trong nước & quốc tế</p></div></div>
+        <div class="feature"><span class="feature-icon">🛡️</span><div><h3>An toàn, uy tín</h3><p>Đồng hành cùng bạn</p></div></div>
+        <div class="feature"><span class="feature-icon">🎧</span><div><h3>Hỗ trợ 24/7</h3><p>Luôn sẵn sàng</p></div></div>
+    </section>
+
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const userArea = document.getElementById("user-account-area");
+
+            // Nếu người dùng đã đăng nhập, tự động điền sẵn tên & email vào form
+            if (currentUser) {
+                document.getElementById("contact-name").value = currentUser.name || "";
+                document.getElementById("contact-email").value = currentUser.email || "";
+
+                userArea.innerHTML = `
+                    <div class="user-menu-container">
+                        <div class="user-btn" onclick="toggleUserDropdown()">
+                            <span class="avatar-icon">👤</span>
+                            <span class="user-name">${currentUser.name || currentUser.email}</span>
+                            <small>▼</small>
+                        </div>
+                        <div id="user-dropdown" class="user-dropdown">
+                            <div class="dropdown-header"><strong>${currentUser.name || "Khách hàng"}</strong><small>${currentUser.email}</small></div>
+                            <hr>
+                            <a href="#">📋 Tour của tôi</a>
+                            <a href="#">⚙️ Cài đặt tài khoản</a>
+                            <hr>
+                            <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
+                        </div>
+                    </div>`;
+            }
+        });
+
+        // Xử lý sự kiện bấm gửi liên hệ
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById("contact-name").value;
+            alert(`Cảm ơn ${name} đã gửi liên hệ! Đội ngũ GoTravel sẽ phản hồi quý khách trong thời gian sớm nhất.`);
+            document.querySelector(".contact-form").reset();
+        }
+
+        function toggleUserDropdown() { document.getElementById("user-dropdown").classList.toggle("show"); }
+        function handleLogout() { sessionStorage.removeItem("currentUser"); window.location.reload(); }
+    </script>
+
+</body>
+
+</html>

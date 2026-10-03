@@ -1,0 +1,157 @@
+/* ===================================================
+   FILE CSS RIÊNG DÀNH CHO TRANG ĐẶT TOUR (dattour.css)
+   =================================================== */
+
+/* RESET VÀ BODY */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.5;
+}
+
+/* KHUNG FORM ĐĂNG KÝ CÂN BẰNG GIỮA TRANG */
+.booking-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 32px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+}
+
+.booking-title {
+    text-align: center;
+    color: #0878c9;
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/* ĐỊNH DẠNG CÁC Ô INPUT & LABEL */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #334155;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #0878c9;
+    box-shadow: 0 0 0 3px rgba(8, 120, 201, 0.15);
+}
+
+.input-readonly {
+    background-color: #f1f5f9 !important;
+    font-weight: 700 !important;
+    color: #0878c9 !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* BỐ CỤC HÀNG BÊN TRONG FORM */
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* BẢNG TÍNH TỔNG TIỀN */
+.summary-box {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 22px 0;
+    border: 1px dashed #0878c9;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #475569;
+}
+
+.summary-total {
+    border-top: 1px solid #cbd5e1;
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.total-label {
+    font-weight: 700;
+    font-size: 16px;
+    color: #0f172a;
+}
+
+.total-price {
+    font-size: 24px;
+    color: #ef4444;
+    font-weight: 800;
+}
+
+/* NÚT ĐĂNG KÝ */
+.btn-submit-booking {
+    width: 100%;
+    background: #0878c9;
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit-booking:hover {
+    background: #05629f;
+}
+
+.btn-submit-booking:active {
+    transform: scale(0.99);
+}
+
+/* RESPONSIVE TRÊN DI ĐỘNG */
+@media (max-width: 600px) {
+    .booking-container {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .booking-title {
+        font-size: 20px;
+    }
+}

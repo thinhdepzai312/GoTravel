@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Tour - GoTravel</title>
+    
+    <!-- Liên kết tới CSS Header chung và CSS riêng của trang mytours -->
+    <link rel="stylesheet" href="style.css/banner.css">
+    <link rel="stylesheet" href="style.css/mytours.css">
+</head>
+<script src="transition.js"></script>
+<body>
+
+    <!-- ================= HEADER GOTRAVEL ================= -->
+    <header>
+        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+        <div class="header-right">
+            <nav>
+                <a href="banner.html">Trang chủ</a>
+                <a href="diemden.html">Điểm đến</a>
+                <a href="tour.html">Tour du lịch</a>
+                <a href="blog.html">Blog</a>
+                <a href="lienhe.html">Liên hệ</a>
+            </nav>
+            <div id="user-account-area"></div>
+        </div>
+    </header>
+
+    <!-- ================= NỘI DUNG CHÍNH ================= -->
+    <main class="history-container">
+        
+        <div class="page-title-box">
+            <h2>📋 Lịch Sử Tour Đã Đặt</h2>
+            <p>Quản lý và theo dõi danh sách các chuyến đi của riêng bạn</p>
+        </div>
+
+        <!-- Thống kê tổng quan -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon">🧳</div>
+                <div class="stat-info">
+                    <h4>Tổng số tour</h4>
+                    <span id="stat-total">0 Tour</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <h4>Trạng thái đơn</h4>
+                    <span>Đã cập nhật</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎧</div>
+                <div class="stat-info">
+                    <h4>Hỗ trợ 24/7</h4>
+                    <span>Hotline: 1900 xxxx</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bảng danh sách đơn hàng -->
+        <div class="table-card">
+            <table class="tour-table">
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Tên Tour du lịch</th>
+                        <th>Ngày khởi hành</th>
+                        <th>Trạng thái</th>
+                        <th>Tổng tiền</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="tourTableBody"></tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- ================= MODAL XEM CHI TIẾT ĐƠN HÀNG ================= -->
+    <div id="orderDetailModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>📄 Chi Tiết Đơn Đặt Tour</h3>
+                <span class="close-btn" onclick="closeDetailModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalContent"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-close-modal" onclick="closeDetailModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL HỦY TOUR & HOÀN TIỀN ================= -->
+    <div id="cancelOrderModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header modal-header-cancel">
+                <h3>⚠️ Yêu Cầu Hủy Tour & Hoàn Tiền</h3>
+                <span class="close-btn" onclick="closeCancelModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="cancelForm" onsubmit="handleConfirmCancel(event)">
+                    
+                    <!-- Thông tin chính sách hoàn tiền -->
+                    <div class="refund-info-box">
+                        <strong>💡 Chính sách hoàn tiền của GoTravel:</strong>
+                        <ul>
+                            <li>Hủy trước ngày đi trên 7 ngày: <strong>Hoàn 100%</strong> giá trị tour.</li>
+                            <li>Hủy trước ngày đi từ 3 - 7 ngày: <strong>Hoàn 50%</strong> giá trị tour.</li>
+                            <li>Hủy trong vòng 3 ngày trước khởi hành: <strong>Không áp dụng hoàn tiền</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Chọn lý do hủy -->
+                    <div class="cancel-field-group">
+                        <label class="cancel-label">1. Lý do muốn hủy tour *</label>
+                        <div class="radio-options">
+                            <label><input type="radio" name="cancelReason" value="Thay đổi lịch trình cá nhân / Việc đột xuất" required checked> Thay đổi lịch trình cá nhân / Việc đột xuất</label>
+                            <label><input type="radio" name="cancelReason" value="Sức khỏe không đảm bảo"> Sức khỏe không đảm bảo</label>
+                            <label><input type="radio" name="cancelReason" value="Thời tiết bất lợi"> Thời tiết bất lợi</label>
+                            <label><input type="radio" name="cancelReason" value="Tìm thấy lựa chọn khác tốt hơn"> Tìm thấy lựa chọn khác tốt hơn</label>
+                            <label><input type="radio" name="cancelReason" value="Lý do khác"> Lý do khác</label>
+                        </div>
+                    </div>
+
+                    <!-- Lời nhắn chi tiết -->
+                    <div class="cancel-field-group">
+                        <label class="cancel-label" for="cancelDetail">2. Ghi chú chi tiết lý do (nếu có)</label>
+                        <textarea id="cancelDetail" rows="3" placeholder="Nhập thêm chi tiết về lý do bạn muốn hủy tour..."></textarea>
+                    </div>
+
+                    <!-- Đánh giá sao -->
+                    <div class="cancel-field-group">
+                        <label class="cancel-label">3. Đánh giá chất lượng dịch vụ hỗ trợ (1 - 5 ⭐)</label>
+                        <div class="star-rating" id="starRating">
+                            <span class="star active" data-value="1">★</span>
+                            <span class="star active" data-value="2">★</span>
+                            <span class="star active" data-value="3">★</span>
+                            <span class="star active" data-value="4">★</span>
+                            <span class="star active" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" id="selectedRating" value="5">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-close-modal" onclick="closeCancelModal()">Quay lại</button>
+                        <button type="submit" class="btn-confirm-cancel">Xác Nhận Hủy Tour</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= KHUNG THÔNG BÁO TÙY CHỈNH (CUSTOM ALERT) ================= -->
+    <div id="customAlertModal" class="modal-overlay">
+        <div class="modal-card custom-alert-card">
+            <div class="custom-alert-header">🎉 THÔNG BÁO GOTRAVEL</div>
+            <div class="custom-alert-body" id="customAlertContent"></div>
+            <button type="button" class="btn-modal-alert-close" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        let userBookings = [];
+        let cancelingIndex = null;
+        let onCustomAlertCloseCallback = null;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const userArea = document.getElementById("user-account-area");
+
+            // 1. Kiểm tra tài khoản đăng nhập
+            if (!currentUser) {
+                showCustomAlert("<p style='text-align:center;'>Bạn cần đăng nhập để xem lịch sử tour!</p>", function() {
+                    window.location.href = "login.html";
+                });
+                return;
+            }
+
+            // Hiển thị Menu tài khoản ở Header
+            if (userArea) {
+                userArea.innerHTML = `
+                    <div class="user-menu-container">
+                        <div class="user-btn" onclick="toggleUserDropdown()">
+                            <span class="avatar-icon">👤</span>
+                            <span class="user-name">${currentUser.name || currentUser.email}</span>
+                            <small>▼</small>
+                        </div>
+                        <div id="user-dropdown" class="user-dropdown">
+                            <div class="dropdown-header">
+                                <strong>${currentUser.name || "Khách hàng"}</strong>
+                                <small>${currentUser.email}</small>
+                            </div>
+                            <hr>
+                            <a href="mytours.html">📋 Tour của tôi</a>
+                            <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            loadAndRenderTours();
+            setupStarRating();
+        });
+
+        // 2. Tải & Render danh sách tour theo tài khoản
+        function loadAndRenderTours() {
+            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const allBookings = JSON.parse(localStorage.getItem("myBookedTours")) || [];
+
+            userBookings = allBookings.filter(b => b.userEmail === currentUser.email || b.email === currentUser.email);
+            document.getElementById("stat-total").innerText = `${userBookings.length} Tour`;
+
+            const tbody = document.getElementById("tourTableBody");
+
+            if (userBookings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 45px 20px; color: #64748b;">
+                            <p style="font-size: 16px; margin-bottom: 10px;">Bạn chưa có đơn đặt tour nào.</p>
+                            <a href="tour.html" style="color: #0878c9; font-weight: bold; text-decoration: none;">👉 Khám phá và đặt tour ngay!</a>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = userBookings.map((item, index) => {
+                const orderId = item.id ? (item.id.startsWith('#') ? item.id : '#' + item.id) : ('#GT' + Math.floor(100000 + Math.random() * 900000));
+                const status = item.status || "Đã xác nhận";
+                const isCanceled = status === "Đã hủy";
+
+                const priceFormatted = typeof item.totalPrice === 'number' 
+                    ? item.totalPrice.toLocaleString('vi-VN') + 'đ' 
+                    : item.totalPrice;
+
+                const statusBadgeHTML = isCanceled 
+                    ? `<span class="status-badge canceled">● Đã hủy</span>`
+                    : `<span class="status-badge confirmed">● ${status}</span>`;
+
+                const cancelBtnHTML = isCanceled
+                    ? `<button type="button" class="btn-cancel-tour btn-cancel-disabled" disabled>Đã Hủy</button>`
+                    : `<button type="button" class="btn-cancel-tour" onclick="openCancelModal(${index})">Hủy tour</button>`;
+
+                return `
+                    <tr>
+                        <td><span class="code-badge">${orderId}</span></td>
+                        <td class="tour-name-cell">${item.tourName}</td>
+                        <td>${item.departureDate || item.startDate || "Chưa xác định"}</td>
+                        <td>${statusBadgeHTML}</td>
+                        <td class="price-cell">${priceFormatted}</td>
+                        <td>
+                            <div class="action-btns-cell">
+                                <button type="button" class="btn-detail" onclick="viewDetail(${index})">Xem chi tiết</button>
+                                ${cancelBtnHTML}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // 3. Xem Chi Tiết Đơn
+        function viewDetail(index) {
+            const item = userBookings[index];
+            if (!item) return;
+
+            const orderId = item.id ? (item.id.startsWith('#') ? item.id : '#' + item.id) : '#GT0000';
+            const priceFormatted = typeof item.totalPrice === 'number' 
+                ? item.totalPrice.toLocaleString('vi-VN') + 'đ' 
+                : item.totalPrice;
+
+            const status = item.status || "Đã xác nhận";
+            const isCanceled = status === "Đã hủy";
+
+            let cancelInfoHTML = "";
+            if (isCanceled && item.cancelReason) {
+                cancelInfoHTML = `
+                    <div class="detail-section" style="background-color: #fef2f2; padding: 12px 16px; border-radius: 10px;">
+                        <h4 style="color: #dc2626;">🚫 Thông tin hủy tour</h4>
+                        <div class="detail-grid">
+                            <p class="full-width"><strong>Lý do hủy:</strong> ${item.cancelReason}</p>
+                            <p><strong>Đánh giá hỗ trợ:</strong> ${"⭐".repeat(item.cancelRating || 5)}</p>
+                            <p><strong>Thời gian hủy:</strong> ${item.cancelDate || "Gần đây"}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById("modalContent").innerHTML = `
+                <div class="detail-section">
+                    <h4>👤 Thông tin người đặt</h4>
+                    <div class="detail-grid">
+                        <p><strong>Họ và tên:</strong> ${item.fullName || item.fullname || "Khách hàng"}</p>
+                        <p><strong>Số điện thoại:</strong> ${item.phone || "Chưa cập nhật"}</p>
+                        <p class="full-width"><strong>Email liên hệ:</strong> ${item.email || "Chưa cập nhật"}</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h4>✈️ Thông tin chi tiết chuyến đi</h4>
+                    <div class="detail-grid">
+                        <p><strong>Mã đơn hàng:</strong> <span class="code-badge">${orderId}</span></p>
+                        <p><strong>Trạng thái:</strong> ${isCanceled ? '<span class="status-badge canceled">● Đã hủy</span>' : '<span class="status-badge confirmed">● Đã xác nhận</span>'}</p>
+                        <p class="full-width"><strong>Tên tour du lịch:</strong> ${item.tourName}</p>
+                        <p><strong>Thời gian tour:</strong> ⏱️ ${item.duration || "3 Ngày 2 Đêm"}</p>
+                        <p><strong>Ngày khởi hành:</strong> 📅 ${item.departureDate || item.startDate || "Chưa xác định"}</p>
+                        <p><strong>Số lượng khách:</strong> 👥 ${item.quantity || item.guestCount || 1} người</p>
+                        <p class="full-width"><strong>Ghi chú:</strong> ${item.note || "Không có ghi chú"}</p>
+                        <p class="full-width"><strong>Ngày đặt đơn:</strong> ${item.bookingDate || "Gần đây"}</p>
+                    </div>
+                </div>
+
+                ${cancelInfoHTML}
+
+                <div class="detail-total-box">
+                    <span>Tổng tiền thanh toán:</span>
+                    <strong class="total-amount">${priceFormatted}</strong>
+                </div>
+            `;
+
+            document.getElementById("orderDetailModal").style.display = "flex";
+        }
+
+        // 4. Mở Modal Hủy Tour
+        function openCancelModal(index) {
+            cancelingIndex = index;
+            document.getElementById("cancelDetail").value = "";
+            document.getElementById("cancelOrderModal").style.display = "flex";
+        }
+
+        // 5. Khởi tạo Đánh giá Sao
+        function setupStarRating() {
+            const stars = document.querySelectorAll("#starRating .star");
+            const ratingInput = document.getElementById("selectedRating");
+
+            stars.forEach(star => {
+                star.addEventListener("click", function () {
+                    const val = parseInt(this.getAttribute("data-value"));
+                    ratingInput.value = val;
+
+                    stars.forEach(s => {
+                        const sVal = parseInt(s.getAttribute("data-value"));
+                        if (sVal <= val) {
+                            s.classList.add("active");
+                        } else {
+                            s.classList.remove("active");
+                        }
+                    });
+                });
+            });
+        }
+
+        // 6. Xử lý Xác Nhận Hủy Tour
+        function handleConfirmCancel(event) {
+            event.preventDefault();
+            if (cancelingIndex === null) return;
+
+            const targetBooking = userBookings[cancelingIndex];
+            if (!targetBooking) return;
+
+            const selectedReasonEl = document.querySelector('input[name="cancelReason"]:checked');
+            const mainReason = selectedReasonEl ? selectedReasonEl.value : "Lý do cá nhân";
+            const detailReason = document.getElementById("cancelDetail").value.trim();
+            const rating = document.getElementById("selectedRating").value;
+
+            const fullReason = detailReason ? `${mainReason} (${detailReason})` : mainReason;
+
+            let allBookings = JSON.parse(localStorage.getItem("myBookedTours")) || [];
+            
+            const bookingInStorage = allBookings.find(b => 
+                (b.id && b.id === targetBooking.id) || 
+                (b.tourName === targetBooking.tourName && b.bookingDate === targetBooking.bookingDate)
+            );
+
+            if (bookingInStorage) {
+                bookingInStorage.status = "Đã hủy";
+                bookingInStorage.cancelReason = fullReason;
+                bookingInStorage.cancelRating = rating;
+                bookingInStorage.cancelDate = new Date().toLocaleDateString('vi-VN');
+
+                localStorage.setItem("myBookedTours", JSON.stringify(allBookings));
+            }
+
+            closeCancelModal();
+
+            showCustomAlert(`
+                <p style="text-align: center; font-weight: bold; font-size: 16px; color: #16a34a; margin-bottom: 10px;">
+                    ✅ ĐÃ GỬI YÊU CẦU HỦY TOUR THÀNH CÔNG!
+                </p>
+                <p style="text-align: center; font-size: 14px; color: #475569;">
+                    Yêu cầu hoàn tiền của bạn đã được ghi nhận và sẽ xử lý theo đúng chính sách của GoTravel.
+                </p>
+            `, function() {
+                loadAndRenderTours();
+            });
+        }
+
+        // 7. Hàm Custom Alert Popups
+        function showCustomAlert(contentHTML, callback = null) {
+            document.getElementById("customAlertContent").innerHTML = contentHTML;
+            document.getElementById("customAlertModal").style.display = "flex";
+            onCustomAlertCloseCallback = callback;
+        }
+
+        function closeCustomAlert() {
+            document.getElementById("customAlertModal").style.display = "none";
+            if (typeof onCustomAlertCloseCallback === "function") {
+                onCustomAlertCloseCallback();
+                onCustomAlertCloseCallback = null;
+            }
+        }
+
+        function closeDetailModal() {
+            document.getElementById("orderDetailModal").style.display = "none";
+        }
+
+        function closeCancelModal() {
+            document.getElementById("cancelOrderModal").style.display = "none";
+            cancelingIndex = null;
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById("user-dropdown");
+            if (dropdown) dropdown.classList.toggle("show");
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem("currentUser");
+            window.location.href = "banner.html";
+        }
+    </script>
+</body>
+
+</html>

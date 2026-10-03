@@ -1,0 +1,545 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8%;
+    background-color: white;
+    animation: headerDown 0.8s ease;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0878c9;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.header-right, nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #17324d;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    position: relative;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #0878c9;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 0;
+    height: 2px;
+    background-color: #0878c9;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.login {
+    border: none;
+    background-color: #0878c9;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.login:hover {
+    transform: scale(1.08);
+    background-color: #05629f;
+}
+
+/* BANNER */
+.banner {
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    background-image: url("https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1920&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    animation: fadeIn 1.5s ease;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    margin-left: 8%;
+    color: white;
+    max-width: 800px;
+}
+
+.small-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+    animation: slideLeft 1s ease;
+}
+
+h1 {
+    font-size: 64px;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    animation: slideLeft 1.2s ease;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 650px;
+    margin-bottom: 30px;
+    animation: slideLeft 1.4s ease;
+}
+
+/* THANH TÌM KIẾM */
+.search-box {
+    width: 750px;
+    height: 80px;
+    background-color: white;
+    border-radius: 45px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    animation: slideUp 1.2s ease;
+    transition: 0.3s;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.search-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.search-item {
+    height: 60px;
+    flex: 1;
+    border-right: 1px solid #ddd;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-item:nth-child(3) {
+    border-right: none;
+}
+
+.search-item:hover {
+    background-color: #f5f8fa;
+}
+
+.icon {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.input-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+.input-content small {
+    color: #888;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.input-content input,
+.input-content select {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    width: 100%;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.search-button {
+    height: 60px;
+    padding: 0 28px;
+    border: none;
+    border-radius: 35px;
+    background-color: #0878c9;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: 0.3s;
+}
+
+.search-button:hover {
+    background-color: #05629f;
+    transform: scale(1.05);
+}
+
+/* FEATURES */
+.features {
+    height: 100px;
+    background-color: #063d63;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 120px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 200px;
+    transition: 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 28px;
+}
+
+.feature h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.feature p {
+    font-size: 13px;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+
+/* ANIMATION */
+@keyframes headerDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideLeft {
+    from { opacity: 0; transform: translateX(-80px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(70px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    header { padding: 0 20px; }
+    nav { display: none; }
+    .banner-content { margin: 0 25px; }
+    h1 { font-size: 42px; }
+    .search-box {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 10px;
+    }
+    .search-item {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding: 8px 10px;
+    }
+    .search-button {
+        width: 100%;
+        margin-top: 8px;
+    }
+    .features {
+        height: auto;
+        padding: 25px;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+/* ================= MENU TÀI KHOẢN SAU KHIN ĐĂNG NHẬP ================= */
+
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f1f5f9;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #17324d;
+    transition: 0.3s;
+    border: 1px solid #e2e8f0;
+}
+
+.user-btn:hover {
+    background-color: #e2e8f0;
+}
+
+.avatar-icon {
+    font-size: 18px;
+}
+
+.user-name {
+    font-size: 14px;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.user-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: white;
+    min-width: 220px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.user-dropdown.show {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+.dropdown-header {
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-header strong {
+    color: #1e293b;
+    font-size: 14px;
+}
+
+.dropdown-header small {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.user-dropdown hr {
+    border: none;
+    border-top: 1px solid #f1f5f9;
+    margin: 6px 0;
+}
+
+.user-dropdown a {
+    color: #334155;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.user-dropdown a:hover {
+    background-color: #f8fafc;
+    color: #0878c9;
+}
+
+.user-dropdown a.logout-btn {
+    color: #ef4444;
+}
+
+.user-dropdown a.logout-btn:hover {
+    background-color: #fef2f2;
+}
+/* ===================================================
+   CSS ĐỊNH DẠNG THANH TÌM KIẾM TOUR (SEARCH BOX)
+   =================================================== */
+.banner {
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+    background: url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1600') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+}
+
+.banner-content {
+    max-width: 650px;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.banner-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* KHUNG THANH TÌM KIẾM NỔI BẬT */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    gap: 15px;
+    width: fit-content;
+}
+
+.search-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+}
+
+.search-item label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.search-item input, 
+.search-item select {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #1e293b;
+    background: transparent;
+}
+
+.btn-search {
+    background: #0878c9;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-search:hover {
+    background: #05629f;
+}
+.date-input-custom {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #1e293b;
+    background: transparent;
+    cursor: pointer;
+    width: 130px;
+}
+
+.date-input-custom::placeholder {
+    color: #64748b;
+}
+
+.date-input-custom::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+/* Màn che chuyển trang */
+.page-transition-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0f172a 0%, #0878c9 100%);
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.45s cubic-bezier(0.77, 0, 0.175, 1), transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Khi trang đã tải xong -> Trượt màn che lên trên */
+body.page-loaded .page-transition-overlay {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+/* Khi bấm chuyển trang -> Kéo màn che xuống lại */
+body.page-exiting .page-transition-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
