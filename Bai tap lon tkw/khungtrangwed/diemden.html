@@ -4,37 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Điểm đến - GoTravel</title>
+    <title>Điểm Đến Du Lịch - GoTravel</title>
 
     <!-- Nhúng CSS chung và CSS riêng của trang Điểm Đến -->
     <link rel="stylesheet" href="style.css/banner.css">
     <link rel="stylesheet" href="style.css/diemden.css">
     <!-- Nhúng phông chữ chuẩn tiếng Việt từ Google -->
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <!-- ================= HEADER ================= -->
-    <header>
-        <div class="logo" onclick="location.href='banner.html'">GoTravel</div>
+    <header id="mainHeader">
+        <div class="logo" onclick="navigateTo('banner.html')">GoTravel</div>
         <div class="header-right">
             <nav>
                 <a href="banner.html">Trang chủ</a>
-                <a href="diemden.html">Điểm đến</a>
+                <a href="diemden.html" class="active">Điểm đến</a>
                 <a href="tour.html">Tour du lịch</a>
                 <a href="blog.html">Blog</a>
                 <a href="lienhe.html">Liên hệ</a>
             </nav>
             
-            <!-- KHU VỰC TÀI KHOẢN (TỰ ĐỘNG ĐỔI KHI ĐĂNG NHẬP) -->
+            <!-- KHU VỰC TÀI KHOẢN (BANNER.JS SẼ TỰ ĐỘNG BƠM MENU TÀI KHOẢN VÀO ĐÂY) -->
             <div id="user-account-area">
-                <button type="button" class="login" onclick="window.location.href='login.html'">Đăng nhập</button>
+                <button type="button" class="login" onclick="navigateTo('login.html')">Đăng nhập</button>
             </div>
         </div>
     </header>
 
-
-    <!-- ================= DANH SÁCH TOUR TẠI CÁC ĐIỂM ĐẾN ================= -->
+    <!-- ================= DANH SÁCH 6 TOUR DU LỊCH ================= -->
     <section class="destinations-section">
         
         <div class="section-header">
@@ -183,7 +183,6 @@
 
     </section>
 
-
     <!-- ================= FOOTER FEATURES ================= -->
     <section class="features">
         <div class="feature">
@@ -209,55 +208,7 @@
         </div>
     </section>
 
-    <!-- JS KIỂM TRA TRẠNG THÁI ĐĂNG NHẬP -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
-            const userArea = document.getElementById("user-account-area");
-
-            if (currentUser) {
-                userArea.innerHTML = `
-                    <div class="user-menu-container">
-                        <div class="user-btn" onclick="toggleUserDropdown()">
-                            <span class="avatar-icon">👤</span>
-                            <span class="user-name">${currentUser.name || currentUser.email}</span>
-                            <small>▼</small>
-                        </div>
-                        <div id="user-dropdown" class="user-dropdown">
-                            <div class="dropdown-header">
-                                <strong>${currentUser.name || "Khách hàng"}</strong>
-                                <small>${currentUser.email}</small>
-                            </div>
-                            <hr>
-                            <a href="#">📋 Tour của tôi</a>
-                            <a href="#">⚙️ Cài đặt tài khoản</a>
-                            <hr>
-                            <a href="javascript:void(0)" class="logout-btn" onclick="handleLogout()">🚪 Đăng xuất</a>
-                        </div>
-                    </div>
-                `;
-            }
-        });
-
-        function toggleUserDropdown() {
-            const dropdown = document.getElementById("user-dropdown");
-            dropdown.classList.toggle("show");
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.closest('.user-menu-container')) {
-                const dropdowns = document.getElementsByClassName("user-dropdown");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    dropdowns[i].classList.remove('show');
-                }
-            }
-        }
-
-        function handleLogout() {
-            sessionStorage.removeItem("currentUser");
-            window.location.reload();
-        }
-    </script>
+    <script src="banner.js"></script>
 
 </body>
 
